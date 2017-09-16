@@ -33,15 +33,15 @@ namespace Parcial2.Game
 
         public void ReceiveDamage(int damage, bool collidedWithPlayer = false)
         {
-            Debug.Log(string.Format("[{0}] received [{1}] damage pts, remaining [{2}] HP", name, damage, HP));
+            //Debug.Log(string.Format("[{0}] received [{1}] damage pts, remaining [{2}] HP", name, damage, HP));
 
             if (collidedWithPlayer)
             {
                 canMove = false;
             }
-
+            
             HP -= damage;
-
+            Debug.Log(HP);
             if (HP <= 0)
             {
                 Destroy(this.gameObject);
@@ -84,8 +84,9 @@ namespace Parcial2.Game
         {
             if (Player.Instance != null)
             {
-                transform.LookAt(Player.Instance.transform);
 
+                transform.LookAt(Player.Instance.transform);
+                Debug.Log(canMove);
                 if (canMove)
                 {
                     transform.Translate(Vector3.forward * speed * Time.deltaTime);

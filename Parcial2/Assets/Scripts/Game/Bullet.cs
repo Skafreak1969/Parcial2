@@ -42,14 +42,20 @@ namespace Parcial2.Game
 
             if (instigator != other.gameObject)
             {
-                Destroy(gameObject); 
+                Destruir(); 
             }
+        }
+
+        void Destruir()
+        {
+            Destroy(gameObject);
         }
 
         // Use this for initialization
         private void Awake()
         {
             myRigidBody = GetComponent<Rigidbody>();
+            Invoke("Destruir", 2);
         }
 
         private void OnDestroy()

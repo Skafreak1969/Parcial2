@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Parcial2.Game
 {
@@ -18,10 +19,18 @@ namespace Parcial2.Game
         [SerializeField]
         private Bullet bulletBase;
 
+        [SerializeField]
+        private Button botonDisparar;
+
         private PlayerProfile playerProfile;
 
         private int hp;
         private int atk;
+
+        Bullet bulletInstance;
+
+        Bullet[] balas;
+        GameObject[] balasGO;
 
         public static Player Instance
         {
@@ -58,7 +67,12 @@ namespace Parcial2.Game
         {
             hp = 300;
             atk = 5;
+            balasGO = GameObject.FindGameObjectsWithTag("Balas");
+            balas = new Bullet[balasGO.Length];
+            for (int i =0; i<balasGO.Length;i++)
+            {
 
+            }
             playerProfile = new PlayerProfile(5000);
             instance = this;
         }
@@ -111,41 +125,51 @@ namespace Parcial2.Game
         {
         }
 
+        public void Disparar()
+        {
+            Vector3 lookAtLocation = Vector3.zero;
+            //Debug.DrawRay(transform.position, Vector3.forward * 5F, Color.green, 5F);
+
+            Collider[] otherColliders = Physics.OverlapSphere(transform.position, 10F);
+
+            for (int i = 0; i < otherColliders.Length; i++)
+            {
+                if (otherColliders[i].gameObject == gameObject)
+                {
+                    continue;
+                }
+                else
+                {
+                    Enemy enemy = otherColliders[i].GetComponent<Enemy>();
+
+                    if (enemy != null)
+                    {
+                        lookAtLocation = enemy.transform.position;
+                        break;
+                    }
+                }
+            }
+
+            if (lookAtLocation != Vector3.zero)
+            {
+                transform.LookAt(lookAtLocation);
+            }
+
+            bulletInstance = Instantiate(bulletBase, transform.position + new Vector3(0F, 1F, 0F), transform.rotation);
+            botonDisparar.interactable = false;
+            bulletInstance.SetParams(50, 100, this.gameObject);
+            bulletInstance.Toss();
+        }
+
         private void Update()
         {
+            if (bulletInstance==null)
+            {
+                botonDisparar.interactable = true;
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Vector3 lookAtLocation = Vector3.zero;
-                //Debug.DrawRay(transform.position, Vector3.forward * 5F, Color.green, 5F);
-
-                Collider[] otherColliders = Physics.OverlapSphere(transform.position, 10F);
-
-                for (int i = 0; i < otherColliders.Length; i++)
-                {
-                    if (otherColliders[i].gameObject == gameObject)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        Enemy enemy = otherColliders[i].GetComponent<Enemy>();
-
-                        if (enemy != null)
-                        {
-                            lookAtLocation = enemy.transform.position;
-                            break;
-                        }
-                    }
-                }
-
-                if (lookAtLocation != Vector3.zero)
-                {
-                    transform.LookAt(lookAtLocation);
-                }
-
-                Bullet bulletInstance = Instantiate(bulletBase, transform.position + new Vector3(0F, 1F, 0F), transform.rotation);
-                bulletInstance.SetParams(50, 100, this.gameObject);
-                bulletInstance.Toss();
+                
             }
         }
 

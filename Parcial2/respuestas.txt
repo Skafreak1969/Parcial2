@@ -1,1 +1,27 @@
-[Inserte aquí las respuestas a las preguntas del numeral 1]
+﻿[Inserte aquí las respuestas a las preguntas del numeral 1]
+a)Usa un overlap sphere que halla todos los colliders en el area, luego revisa si alguno de esos
+colliders en el arreglo resultante de el overlap sphere es un enemigo, y se gira en direccion a la posicion
+del primer gameobject que tiene el collider que reconoce como enemigo.
+b)En el codigo el enemigo solo no puede moverse hacia el jugador en caso de que el booleano canMove este en falso,
+canMove cambia si en el metodo de recibir daño que se activa cuando la bala imapacta el enemigo el booleano collidedWithPlayer
+estuviera en verdadero dando a entender que cuando lo golpea con la bala no puede moverse,
+pero el valor esta siendo asignado como falso en los parametros asi que el booleano nunca
+va a cambiar y el enemigo siempre se movera hacia el player a menos que no haya una instancia
+de player o el enemigo muera.
+c)el cuando se presiona espacio ademas de girarse hacia el primer enemigo que encuentra
+hace un instantiate de la bala en una posicion en una unidad de y mas arriba del player
+luego se ejecuta un metodo que le define los parametros principales a la bala su daño
+su velocidad y quien la disparo y finalmente se pone en movimiento ya el resto depende del
+comprotamiento de la bala
+d) el enemigo tiene un enumerador tier que mas adelante define el ataque y la vida del enemigo
+estas dos son atributos publicos que pueden ser vistos por cualquier otra clase pero su set
+esta protegido signifa que pueden ver y ver su valor culquier clase pero solo sus hijos pueden
+cambiarlo, aunque aun no hay definicion de herencia podria ser privado, tiene unos atributos
+color y malla que definen la parte visual del enemigo pero aunque son publicas tiene un serialize field
+lo cual es inusual ya que en unity las variables publicas normalmente por default se serializan en 
+el inspector y tiene un parde variables privadas que tambien estan serializadas estas si para poder ser
+cambiadas y visualizadas desde el inspector sin el serializable field en este caso si serian inaccesibles desde
+el inspector que definen su velocidad y permite seleccionar el tier entre las opciones: base, bajo, medio y alto.
+e) la ya que este atributo lo recibe del player definidendo como quien 
+fue el que creo la bala, con esto si la bala tiene contacto con el payer mientras se dispara
+no se destruye pero cuando entra en contacto con algo diferente a su instigador se deberia destruir;
