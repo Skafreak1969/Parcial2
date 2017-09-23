@@ -1,0 +1,16 @@
+Feedback
+
+1. OK (0.3)
+2. Faltó el caso en que la velocidad de movimiento del enemigo sea 0 (0.2)
+3. OK (0.3)
+4. OJO! Los atributos asociados a 'Atk' y 'Hp' NO son públicos, sino protegidos. Lo que es público es su accesor. (0.2)
+5. OK (0.3)
+
+Código
+1. No entiendo por qué las FactoryA/B/C/D son subclases de Enemy. Bien podrían ser subclases de Factory (dado que todas tienen absolutamente el mismo código), y esa clase que tenés como Factory, cambiarle el nombre para que suene al controlador de instancias que se comunica con las factories (0.3)
+2. OK (0.5)
+3. No encuentro quién controle las olas de enemigos (0.0)
+4. No hay variación de la bala (0.0)
+5. No hay pool de balas (0.0)
+
+Total: 2.1
